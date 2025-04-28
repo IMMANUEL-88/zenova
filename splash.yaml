@@ -1,0 +1,21 @@
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  color: "#A8C3A0"
+  image: "assets/splash/zenova_splash.png"
+  branding: "assets/splash/zenova_branding.png"
+
+  color_dark: "#A8C3A0"
+  image_dark: "assets/splash/zenova_splash.png"
+  branding_dark: "assets/splash/zenova_branding.png"
+
+  android_12:
+    color: "#A8C3A0"
+    image: "assets/splash/zenova_splash.png"
+    branding: "assets/splash/zenova_branding.png"
+
+    color_dark: "#A8C3A0"
+    image_dark: "assets/splash/zenova_splash.png"
+    branding_dark: "assets/splash/zenova_branding.png"
