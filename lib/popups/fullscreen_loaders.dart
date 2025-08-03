@@ -23,7 +23,7 @@ class EFullScreenLoader {
               children: [
                 EAnimationLoaderWidget(
                   text: text,
-                  image: EImages.loadingAppLogo,
+                  image: EImages.lightLoadingAppLogo,
                 ),
               ],
             ),

@@ -16,3 +16,16 @@ final class HabitTrackPageListTileOnPressedEvent extends HabitTrackPageEvent {
 }
 
 final class HabitTrackPageLogoutPressedEvent extends HabitTrackPageEvent {}
+
+final class HabitTrackPageAddHabitConfirmEvent extends HabitTrackPageEvent {
+  final String habitName;
+
+  HabitTrackPageAddHabitConfirmEvent({required this.habitName});
+}
+
+final class HabitTrackPageHabitBoxOnPressedEvent
+    extends HabitTrackPageEvent {
+  final String habitName;
+
+  HabitTrackPageHabitBoxOnPressedEvent({required this.habitName});
+}

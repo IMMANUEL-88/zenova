@@ -22,8 +22,8 @@ class EAnimationLoaderWidget extends StatelessWidget {
         children: [
           Image.asset(
             image,
-            height: 68.h,
-            width: 68.w,
+            height: 80.h,
+            width: 80.w,
             fit: BoxFit.contain,
           ),
           Text(

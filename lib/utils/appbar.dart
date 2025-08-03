@@ -37,7 +37,7 @@ class EAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
               icon: Icon(
                 Icons.arrow_back,
-                color: dark ? EColors.dark : EColors.white,
+                color: dark ? EColors.white : EColors.dark,
                 size: 24.r,
               ),
             )
@@ -46,7 +46,7 @@ class EAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onPressed: leadingOnPressed,
                   icon: Icon(
                     leadingIcon,
-                    color: dark ? EColors.dark : EColors.white,
+                    color: dark ? EColors.white : EColors.dark,
                   ),
                   iconSize: 24.r,
                 )

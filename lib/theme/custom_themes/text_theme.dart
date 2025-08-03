@@ -9,85 +9,85 @@ class ETextTheme {
     headlineLarge: TextStyle().copyWith(
       fontSize: 32.0.sp,
       fontWeight: FontWeight.bold,
-      color: EColors.white,
+      color: EColors.black,
     ),
     headlineMedium: TextStyle().copyWith(
       fontSize: 24.0.sp,
       fontWeight: FontWeight.w600,
-      color: EColors.white,
+      color: EColors.black,
     ),
     headlineSmall: TextStyle().copyWith(
       fontSize: 18.0.sp,
       fontWeight: FontWeight.w600,
-      color: EColors.white,
+      color: EColors.black,
     ),
     titleLarge: TextStyle().copyWith(
       fontSize: 16.0.sp,
       fontWeight: FontWeight.w600,
-      color: EColors.white,
+      color: EColors.black,
     ),
     titleMedium: TextStyle().copyWith(
       fontSize: 16.0.sp,
       fontWeight: FontWeight.w500,
-      color: EColors.white,
+      color: EColors.black,
     ),
     titleSmall: TextStyle().copyWith(
       fontSize: 16.0.sp,
       fontWeight: FontWeight.w400,
-      color: EColors.white,
+      color: EColors.black,
     ),
     bodyLarge: TextStyle().copyWith(
       fontSize: 14.0.sp,
       fontWeight: FontWeight.w500,
-      color: EColors.white,
+      color: EColors.black,
     ),
     bodyMedium: TextStyle().copyWith(
       fontSize: 14.0.sp,
       fontWeight: FontWeight.normal,
-      color: EColors.white,
+      color: EColors.black,
     ),
     bodySmall: TextStyle().copyWith(
         fontSize: 14.0.sp,
         fontWeight: FontWeight.w500,
-        color: EColors.white.withValues(alpha: 0.5)),
+        color: EColors.black.withValues(alpha: 0.5)),
     labelLarge: TextStyle().copyWith(
       fontSize: 12.0.sp,
       fontWeight: FontWeight.normal,
-      color: EColors.white,
+      color: EColors.black,
     ),
     labelMedium: TextStyle().copyWith(
         fontSize: 12.0.sp,
         fontWeight: FontWeight.normal,
-        color: EColors.white.withValues(alpha: 0.5)),
+        color: EColors.black.withValues(alpha: 0.5)),
   );
 
   /// Customizable Dark Text Theme
   static TextTheme darkTextTheme = TextTheme(
     headlineLarge: TextStyle().copyWith(
-        fontSize: 32.0.sp, fontWeight: FontWeight.bold, color: Colors.black),
+        fontSize: 32.0.sp, fontWeight: FontWeight.bold, color: EColors.white),
     headlineMedium: TextStyle().copyWith(
-        fontSize: 24.0.sp, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 24.0.sp, fontWeight: FontWeight.w600, color: EColors.white),
     headlineSmall: TextStyle().copyWith(
-        fontSize: 18.0.sp, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 18.0.sp, fontWeight: FontWeight.w600, color: EColors.white),
     titleLarge: TextStyle().copyWith(
-        fontSize: 16.0.sp, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 16.0.sp, fontWeight: FontWeight.w600, color: EColors.white),
     titleMedium: TextStyle().copyWith(
-        fontSize: 16.0.sp, fontWeight: FontWeight.w500, color: Colors.black),
+        fontSize: 16.0.sp, fontWeight: FontWeight.w500, color: EColors.white),
     titleSmall: TextStyle().copyWith(
-        fontSize: 16.0.sp, fontWeight: FontWeight.w400, color: Colors.black),
+        fontSize: 16.0.sp, fontWeight: FontWeight.w400, color: EColors.white),
     bodyLarge: TextStyle().copyWith(
-        fontSize: 14.0.sp, fontWeight: FontWeight.w500, color: Colors.black),
+        fontSize: 14.0.sp, fontWeight: FontWeight.w500, color: EColors.white),
     bodyMedium: TextStyle().copyWith(
-        fontSize: 14.0.sp, fontWeight: FontWeight.normal, color: Colors.black),
+        fontSize: 14.0.sp, fontWeight: FontWeight.normal, color: EColors.white),
     bodySmall: TextStyle().copyWith(
         fontSize: 14.0.sp,
         fontWeight: FontWeight.w500,
-        color: Colors.black.withValues(alpha: 0.5)),
+        color: EColors.white.withValues(alpha: 0.5)),
     labelLarge: TextStyle().copyWith(
-        fontSize: 12.0.sp, fontWeight: FontWeight.normal, color: Colors.black),
+        fontSize: 12.0.sp, fontWeight: FontWeight.normal, color: EColors.white),
     labelMedium: TextStyle().copyWith(
         fontSize: 12.0.sp,
         fontWeight: FontWeight.normal,
-        color: Colors.black.withValues(alpha: 0.5)),
+        color: EColors.white.withValues(alpha: 0.5)),
   );
 }

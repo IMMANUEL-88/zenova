@@ -16,8 +16,8 @@ class HabitTrackPageBloc
 
   FutureOr<void> habitTrackPageInitialEvent(HabitTrackPageInitialEvent event,
       Emitter<HabitTrackPageState> emit) async {
-    emit(HabitTrackPageLoadingState());
-    await Future.delayed(Duration(seconds: 1));
+    // emit(HabitTrackPageLoadingState());
+    // await Future.delayed(Duration(seconds: 3));
     emit(HabitTrackPageLoadedState());
   }
 
