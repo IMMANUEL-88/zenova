@@ -2,7 +2,9 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:zenova/pages/analytics/repo/analytics_repo.dart';
+import 'package:zenova/provider/theme_provider.dart';
 import 'package:zenova/routes.dart';
 import 'package:zenova/theme/theme.dart';
 import 'package:zenova/utils/local_storage/hive_storage_helper.dart';
@@ -25,7 +27,13 @@ Future<void> main() async {
     }
   }
 
-  runApp(const MyApp());
+  // Wrap your app with the provider
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -33,17 +41,32 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // This build method no longer listens to the provider.
+    // It builds the constant parts of your app.
     return DevicePreview(
       enabled: false,
       builder: (context) => ScreenUtilInit(
         designSize: const Size(392.72, 856.72),
         minTextAdapt: true,
-        builder: (_, child) => MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          themeMode: ThemeMode.system,
-          theme: lightMode,
-          darkTheme: darkMode,
-          routerConfig: AppRoutes.createRouter(),
+        builder: (_, child) => Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
+            if (themeProvider.isLoading) {
+              return const MaterialApp(
+                home:
+                    Scaffold(body: Center(child: CircularProgressIndicator())),
+              );
+            }
+
+            final router = AppRoutes.createRouter();
+            return MaterialApp.router(
+              key: ValueKey(themeProvider.themeMode),
+              debugShowCheckedModeBanner: false,
+              themeMode: themeProvider.themeMode,
+              theme: lightMode,
+              darkTheme: darkMode,
+              routerConfig: router,
+            );
+          },
         ),
       ),
     );

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vibration/vibration.dart';
 import 'package:zenova/constants/colors.dart';
 import 'package:zenova/helper/helper_functions.dart';
 import 'package:zenova/pages/login/repo/login_repo.dart';
@@ -105,7 +107,6 @@ class _ELoginFormState extends State<ELoginForm> {
             },
             onChanged: removeSpaces,
           ),
-
           SizedBox(
             height: ESizes.spaceBtwInputFields.h,
           ),
@@ -189,22 +190,42 @@ class _ELoginFormState extends State<ELoginForm> {
                     if (eMail.endsWith(' ')) {
                       eMail = eMail.substring(0, eMail.length - 1);
                     }
-                    EFullScreenLoader.openLoadingDialog("Sending OTP...", context);
-                    final otpResponse = await loginRepo.sendOtp(email.text.trim());
+                    EFullScreenLoader.openLoadingDialog(
+                        "Checking Email...", context);
 
-                    if (otpResponse['success'] == true) {
+                    final isExist =
+                        await loginRepo.checkEmailExists(email.text.trim());
+                    if (isExist == true) {
                       EFullScreenLoader.stopLoading(context);
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      context.go('/resetPassword', extra: eMail);
-                    } else {
+                      EFullScreenLoader.openLoadingDialog(
+                          "Sending OTP...", context);
+                      final otpResponse =
+                          await loginRepo.sendOtp(email.text.trim());
+
+                      if (otpResponse['success'] == true) {
+                        Vibration.vibrate(duration: 100);
+                        EFullScreenLoader.stopLoading(context);
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        context.go('/resetPassword', extra: eMail);
+                      } else {
+                        EFullScreenLoader.stopLoading(context);
+                        Vibration.vibrate(duration: 200);
+                        ELoaders.errorSnackBar(
+                          context: context,
+                          title: 'Oops! Something went wrong',
+                          message: otpResponse['error'] ?? 'Failed to send OTP',
+                        );
+                      }
+                    }else{
+                      Vibration.vibrate(duration: 200);
                       EFullScreenLoader.stopLoading(context);
                       ELoaders.errorSnackBar(
                         context: context,
-                        title: 'Oops! Something went wrong',
-                        message: otpResponse['error'] ?? 'Failed to send OTP',
-                      );
+                        title: 'Oops! Email doesn\'t exist',
+                        message: "Please check your email or SignUp");
                     }
                   } else {
+                    Vibration.vibrate(duration: 200);
                     ELoaders.errorSnackBar(
                         context: context,
                         title: 'Oops! Email Field Empty',

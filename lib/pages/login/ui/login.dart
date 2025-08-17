@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rive/rive.dart' as rive;
+import 'package:vibration/vibration.dart';
 import 'package:zenova/constants/colors.dart';
 import 'package:zenova/constants/image_strings.dart';
 import 'package:zenova/constants/sizes.dart';
@@ -67,6 +68,7 @@ class _LoginState extends State<Login> {
       bool isOffline = results.contains(ConnectivityResult.none);
 
       if (isOffline) {
+        Vibration.vibrate(duration: 200);
         loginBloc.add(LoginNoInternetEvent());
       } else {
         loginBloc.add(LoginInitialEvent());
@@ -93,8 +95,7 @@ class _LoginState extends State<Login> {
           ELoaders.successSnackBar(
               context: context,
               title: "Yay! Your credentials are right",
-              message: state.message
-              );
+              message: state.message);
           context.go('/otp', extra: state.email);
         }
         if (state is LoginErrorState) {
@@ -182,6 +183,7 @@ class _LoginState extends State<Login> {
                           if (isConnected) {
                             loginBloc.add(LoginInitialEvent());
                           } else {
+                            Vibration.vibrate(duration: 200);
                             ELoaders.errorSnackBar(
                               context: context,
                               title: 'Oops! No Internet Connection...',

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -46,33 +47,56 @@ class LoginRepository {
   }
 
   Future<Map<String, dynamic>> sendOtp(String email) async {
-  final url = Uri.parse('$apiUrl/otp/send-otp');
+    final url = Uri.parse('$apiUrl/otp/send-otp');
 
-  try {
-    final response = await http.post(
-      url,
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({"email": email}),
-    );
+    try {
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"email": email}),
+      );
 
-    final body = jsonDecode(response.body);
+      final body = jsonDecode(response.body);
 
-    if (response.statusCode == 200) {
-      return {
-        'success': true,
-        'message': body['message'] ?? "OTP sent successfully",
-      };
-    } else {
+      if (response.statusCode == 200) {
+        return {
+          'success': true,
+          'message': body['message'] ?? "OTP sent successfully",
+        };
+      } else {
+        return {
+          'success': false,
+          'error': body['error'] ?? body['message'] ?? "Failed to send OTP",
+        };
+      }
+    } catch (e) {
       return {
         'success': false,
-        'error': body['error'] ?? body['message'] ?? "Failed to send OTP",
+        'error': "Failed to send OTP. Please try again.",
       };
     }
-  } catch (e) {
-    return {
-      'success': false,
-      'error': "Failed to send OTP. Please try again.",
-    };
   }
-}
+
+  Future<bool> checkEmailExists(String email) async {
+    final url = Uri.parse('$apiUrl/auth/isExist');
+
+    try {
+      final response = await http.post(url,
+          headers: {'Content-Type': 'application/json; charset=UTF-8'},
+          body: jsonEncode({
+            'email': email,
+          }));
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseBody = jsonDecode(response.body);
+        return responseBody['exists'] ?? false;
+      } else {
+        throw Exception(
+            'Failed to check email. Status code:  ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Error Checking email: $email');
+      throw Exception('An error occured while checking the email.');
+    }
+  }
 }

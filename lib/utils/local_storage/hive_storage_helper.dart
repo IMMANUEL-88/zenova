@@ -9,6 +9,7 @@ class HiveStorageHelper {
   static const String _userIdKey = 'userId';
   static const String _loggedInKey = 'loggedIn';
   static const String _analyticsDataKey = 'analyticsData';
+  static const String _themeModeKey = 'isDarkMode';
 
   static late final Box _box;
 
@@ -20,6 +21,17 @@ class HiveStorageHelper {
     Hive.registerAdapter(DailyAnalyticsAdapter());
 
     _box = await Hive.openBox(_userBox);
+  }
+
+  /// Saves the user's theme preference (true for dark, false for light).
+  static Future<void> setThemeMode(bool isDark) async {
+    await _box.put(_themeModeKey, isDark);
+  }
+
+  /// Retrieves the user's theme preference.
+  /// Returns null if no preference has been set yet.
+  static bool? getThemeMode() {
+    return _box.get(_themeModeKey);
   }
 
   // Analytics data methods
@@ -71,5 +83,10 @@ class HiveStorageHelper {
 
   static Future<void> clearAll() async {
     await _box.clear();
+  }
+
+  /// Clears the saved theme preference, reverting to system default
+  static Future<void> clearThemeMode() async {
+    await _box.delete(_themeModeKey);
   }
 }

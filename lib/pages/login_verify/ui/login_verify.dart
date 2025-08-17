@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:http/http.dart' as http;
+import 'package:vibration/vibration.dart';
 import 'package:zenova/constants/colors.dart';
 import 'package:zenova/constants/image_strings.dart';
 import 'package:zenova/helper/helper_functions.dart';
@@ -34,6 +35,7 @@ class _LoginOtpVerificationPageState extends State<LoginOtpVerificationPage> {
 
   Future<void> verifyOtp() async {
     if (otpController.text.length != 6) {
+      Vibration.vibrate(duration: 200);
       setState(() => message = "Please enter a valid 6-digit OTP");
       return;
     }
@@ -66,6 +68,7 @@ class _LoginOtpVerificationPageState extends State<LoginOtpVerificationPage> {
       if (success) {
         EFullScreenLoader.openLoadingDialog("Logging in...", context);
         await HiveStorageHelper.setLoggedIn(true);
+        Vibration.vibrate(duration: 100);
         ELoaders.successSnackBar(
           context: context,
           title: "Yay! OTP Verified",
@@ -73,8 +76,11 @@ class _LoginOtpVerificationPageState extends State<LoginOtpVerificationPage> {
         );
         EFullScreenLoader.stopLoading(context);
         context.go('/home');
+      } else {
+        Vibration.vibrate(duration: 200);
       }
     } catch (e) {
+      Vibration.vibrate(duration: 200);
       setState(() {
         isLoading = false;
         message = "Something went wrong. Please try again.";
@@ -105,7 +111,8 @@ class _LoginOtpVerificationPageState extends State<LoginOtpVerificationPage> {
                 ),
                 Text(
                   "Verify your email",
-                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 8.h),
                 Text(

@@ -5,14 +5,18 @@ import 'package:zenova/pages/forgot_password/ui/forgot_password.dart';
 import 'package:zenova/pages/habit_track/ui/habit_track.dart';
 import 'package:zenova/pages/login/ui/login.dart';
 import 'package:zenova/pages/login_verify/ui/login_verify.dart';
+import 'package:zenova/pages/profile/ui/profile.dart';
+import 'package:zenova/pages/settings/settings.dart';
 import 'package:zenova/pages/signup/ui/signup.dart';
 import 'package:zenova/pages/signup/ui/signup_verify_screen.dart';
+import 'package:zenova/provider/theme_provider.dart';
 import 'package:zenova/utils/local_storage/hive_storage_helper.dart';
 
 class AppRoutes {
   static GoRouter createRouter() {
     return GoRouter(
       initialLocation: HiveStorageHelper.isLoggedIn() ? '/home' : '/',
+      refreshListenable: ThemeProvider(),
       routes: [
         GoRoute(
           path: '/home',
@@ -62,10 +66,21 @@ class AppRoutes {
           },
         ),
 
+        GoRoute(
+          path: '/profile',
+          builder: (context, state) => const ProfileScreen(),
+        ),// 
+
+        GoRoute(
+          path: '/settings',
+          builder: (context, state) => const SettingsScreen(),
+        ),// 
+
         // GoRoute(
-        //   path: '/address',
+        //   path: '/analytics',
         //   builder: (context, state) => const UserAddressScreen(),
-        // );
+        // ),
+
       ],
     );
   }

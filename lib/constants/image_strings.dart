@@ -17,4 +17,9 @@ class EImages {
   // new password
   static String lightNewPassword = 'assets/logo/light_password.png';
   static String darkNewPassword = 'assets/logo/dark_password.png';
+
+  // Music
+  static String darkMusic = 'assets/logo/music_dark.png';
+  static String lightMusic = 'assets/logo/music_light.png';
+
 }

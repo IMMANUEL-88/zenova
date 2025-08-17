@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:vibration/vibration.dart';
 import 'package:zenova/pages/login/repo/login_repo.dart';
 import 'package:zenova/popups/fullscreen_loaders.dart';
 import 'package:zenova/popups/snackbar.dart';
@@ -34,6 +36,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     EFullScreenLoader.openLoadingDialog("Logging in...", event.context);
 
     if (event.email.isEmpty || event.password.isEmpty) {
+      Vibration.vibrate(duration: 200);
       EFullScreenLoader.stopLoading(event.context);
       emit(LoginErrorState(errorMessage: "Email and Password cannot be empty"));
       return;
@@ -51,35 +54,31 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           await HiveStorageHelper.setUserId(response['user']['userId']);
         }
 
-        // EFullScreenLoader.stopLoading(event.context);
-        //   emit(LoginPageVerifyOTPNavigateState(
-        //     email: event.email,
-        //     message: "Message",
-        //   ));
-
-
-
         // Handle OTP sending
         final otpResponse = await loginRepo.sendOtp(event.email);
 
         if (otpResponse['success'] == true) {
+          Vibration.vibrate(duration: 100);
           EFullScreenLoader.stopLoading(event.context);
           emit(LoginPageVerifyOTPNavigateState(
             email: event.email,
             message: otpResponse['message'],
           ));
         } else {
+          Vibration.vibrate(duration: 200);
           EFullScreenLoader.stopLoading(event.context);
           emit(LoginErrorState(
             errorMessage: otpResponse['error'] ?? 'Failed to send OTP',
           ));
         }
       } else {
+        Vibration.vibrate(duration: 200);
         EFullScreenLoader.stopLoading(event.context);
         emit(
             LoginErrorState(errorMessage: response['error'] ?? 'Login failed'));
       }
     } catch (e) {
+      Vibration.vibrate(duration: 200);
       EFullScreenLoader.stopLoading(event.context);
       emit(LoginErrorState(
           errorMessage: 'Something went wrong. Please try again.'));
