@@ -1,4 +1,4 @@
-# 🌿 Zenova – Self-Improvement & Digital Wellness App
+# 🌿 Zenova – Self-Improvement & Digital Wellness App( Work In Progress )
 
 Zenova is a Flutter-based mobile application designed to help users improve productivity, build healthy habits, and maintain mental wellness. It combines essential self-improvement tools like habit tracking, meditation, focus timers, and white noise into a single, user-friendly app.
 
@@ -107,3 +107,4 @@ flutter run
 ```
 
 **Note**: While you can clone and run the app locally, please be aware that the backend APIs are currently hosted on a local server (localhost). To test full functionality, you'll need to set up the backend environment separately.
+
